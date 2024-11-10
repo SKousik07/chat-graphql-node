@@ -17,7 +17,6 @@ const groupResolver = {
           path: "messages.from",
           select: "id username email",
         });
-        //console.log("getGroup-group", group);
         return group;
       } catch (error) {
         console.error("Error fetching group:", error);
@@ -39,7 +38,6 @@ const groupResolver = {
           userId,
           type,
         };
-        console.log("newMessage", newMessage);
         let group = await findGroup(combinedId);
         if (!group) {
           group = await createGroup(combinedId);
@@ -64,7 +62,6 @@ const groupResolver = {
           groupUpdated: groupToPublish,
         });
 
-        //console.log("savedgroup", combinedId, group);
         return group;
       } catch (error) {
         console.error("Error adding message to group:", error);
@@ -75,14 +72,12 @@ const groupResolver = {
   Subscription: {
     groupUpdated: {
       subscribe: (root, { combinedId }, { pubSub }) => {
-        console.log("subcombinedId", combinedId);
         return pubSub.asyncIterator(`GROUP_UPDATED_${combinedId}`);
       },
     },
 
     messageSent: {
       subscribe: (root, args, { pubSub, user }) => {
-        console.log("insideResolver", pubSub, user);
         return pubSub.asyncIterator(["MESSAGE_SENT"]);
       },
     },

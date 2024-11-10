@@ -2,17 +2,6 @@ const { PubSub } = require("graphql-subscriptions");
 const authResolver = require("./authResolver");
 const groupResolver = require("./groupResolver");
 
-// const resolvers = {
-//   Query: {
-//     hello: () => "Hello world!",
-//   },
-//   Subscription: {
-//     messageSent: {
-//       subscribe: () => pubsub.asyncIterator(["MESSAGE_SENT"]),
-//     },
-//   },
-// };
-
 const myResolvers = [authResolver, groupResolver];
 
 const queries = {};

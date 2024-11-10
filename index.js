@@ -61,7 +61,6 @@ async function startServer() {
   const apolloServer = new ApolloServer({
     schema,
     context: async ({ req }) => {
-      console.log("apo-context");
       const authToken = req.headers.authorization || "";
       let user = null;
       if (authToken) {
@@ -98,7 +97,6 @@ async function startServer() {
     express.json(),
     expressMiddleware(apolloServer, {
       context: async ({ req }) => {
-        console.log("mid-context");
         const authToken = req.headers.authorization || "";
         let user = null;
         if (authToken) {

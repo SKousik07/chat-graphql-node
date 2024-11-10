@@ -16,12 +16,10 @@ const authResolver = {
     hello: () => "Hello world!",
     user: async (root, { id }, context) => {
       try {
-        console.log("userId", id, context);
         if (!context.user) {
           throw new Error("Unauthorized user");
         }
         const user = await findUserById(id);
-        console.log("fetcheduser", user);
         if (!user) {
           throw new Error("User not found");
         }
@@ -42,7 +40,6 @@ const authResolver = {
         if (!users) {
           throw new Error("Users not found");
         }
-        console.log("users", users);
         return {
           users,
         };
@@ -62,7 +59,6 @@ const authResolver = {
         if (!users) {
           throw new Error("Users not found");
         }
-        console.log("otherusers", id, users);
         return {
           users,
         };
@@ -90,7 +86,6 @@ const authResolver = {
           password: hashedPassword,
         };
         const savedUser = await createUser(newUser);
-        console.log("savedUser", savedUser);
         return {
           message: "User created successfully",
           success: true,
@@ -105,7 +100,6 @@ const authResolver = {
 
     login: async (root, { email, password }, context) => {
       try {
-        console.log("context-log", context);
         //check user exists or not
         const existingUser = await findUserByEmail(email);
         if (!existingUser) {
@@ -116,7 +110,6 @@ const authResolver = {
         if (!isValid) {
           throw new Error("Invalid password");
         }
-        console.log("existingUser", existingUser);
         //create token
         const tokenData = {
           id: existingUser._id,
